@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Instagram login</title>
+        <style>
+            .signup{
+
+
+            }
+            .input{
+                  padding-top: 40px;
+                text-align: center;
+                font-size: 23px;
+                background-color: aquamarine;
+                 
+            }
+        </style>
+    </head>
+    <body>
+        <form method="post"  >
+            {% csrf_token %}
+            <h1><b>INSTAGRAM</b></h1>
+            <h2>SIGN UP</h2>
+            <div class="input">
+            <div>
+                 <label for="username">Username: </label>
+                 <input id="username" type="text" name="username" value={{ username }}>
+            </div>
+            <br>
+            <div>
+                <label for="name">Name: </label>
+                <input id="name" type="text" name="name" value={{ name }}>
+            </div><br>
+
+            <div>
+                <label for="email">Email: </label>
+                <input id="email" type="email" name="email" value={{ email }}>
+            </div><br>
+
+            <div>
+                <label for="password">Password: </label>
+                <input id="password" type="password" name="password" value={{ password }}>
+            </div><br>
+
+            <div><input type="submit" value="submit"></div><br>
+            </div></form>
+        <br>
+    <div><h3>Already a user?</h3><a href="login/">Login</a> </div>
+    </body>
+</html>
