@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
+<form method="post" action="/feed">
+    {% csrf_token %}
 
       <div>
           <label for="username">Username: </label>
