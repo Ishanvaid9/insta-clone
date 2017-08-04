@@ -14,7 +14,19 @@ class UserModel(models.Model):
   updated_on = models.DateTimeField(auto_now=True)
 
   def __str__(self):
-       return self.username,self.email
+       return self.username
+
+class PostModel(models.Model):
+  user = models.ForeignKey(UserModel)
+  image = models.FileField(upload_to='user_images')
+  image_url = models.CharField(max_length=255)
+  caption = models.CharField(max_length=240)
+  created_on = models.DateTimeField(auto_now_add=True)
+  updated_on = models.DateTimeField(auto_now=True)
+
+  def like_count(self):
+      return len(LikeModel.objects.filter(post=self))
+
 
 
 class SessionToken(models.Model):
@@ -25,3 +37,18 @@ class SessionToken(models.Model):
 
     def create_token(self):
         self.session_token = uuid.uuid4()
+
+
+
+class LikeModel(models.Model):
+    user = models.ForeignKey(UserModel)
+    post = models.ForeignKey(PostModel)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+class CommentModel(models.Model):
+  user = models.ForeignKey(UserModel)
+  post = models.ForeignKey(PostModel)
+  comment_text = models.CharField(max_length=555)
+  created_on = models.DateTimeField(auto_now_add=True)
+  updated_on = models.DateTimeField(auto_now=True)
