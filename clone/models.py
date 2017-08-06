@@ -52,3 +52,6 @@ class CommentModel(models.Model):
   comment_text = models.CharField(max_length=555)
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+      return self.user.name +" has commented " +self.comment_text

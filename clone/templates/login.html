@@ -4,10 +4,59 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+        <style>
+                 .box    {
+                        height: 350px;  
+                        width: 325px;
+                       padding: 10px;
+                       border: 1px solid #e6e6e6 ;
+                       margin-left: 32em;
+                        margin-top:5em;
+                         border-radius: 3px;
+                    }
+         #username{margin-top: 30px;
+                   height:27px;
+                  width:200px;
+                   color:whitesmoke;
+                 margin-bottom: 5px;
+                  background-color:rgba(228, 194, 194, 0.08);
+                  }
+         #password{margin-left: 2px;
+                  height:27px;
+                  color:whitesmoke;
+                    width: 200px;
+                 background-color:rgba(228, 194, 194, 0.08);
+                
+                }
+         body{
+                 background: url("https://static1.squarespace.com/static/58ad233ce3df28b8c47a066a/58f137bc579fb335328df54a/58f141bfb8a79b050d619ad3/1492206016262/back.jpg?format=500w");
+                         
+                background-size: cover;
+                 background-repeat: no-repeat;
+         }
+               .login{
+                        
+                                background: rgba(243, 84, 52, 0.17);
+                            border-color: whitesmoke;
+                        color: white;
+                        font-size: 20px;
+                        width: 12.13em;
+                        height: 34px;
+                        margin-top: 22px;
+                        border-radius: 6px;
+                       margin-left: 36px;
+                       
+                }
+                label{
+                        color:whitesmoke;
+                        font-size: 11px;
+                        font-family: monospace;
+                }
+        </style>
+<body><div class="box">
 <form method="post" action="feed/">
     {% csrf_token %}
-
+<img src="http://i.imgur.com/HsvCLVl.png?1" style="margin-left:78px ">
       <div>
           <label for="username">Username: </label>
           <input id="username" type="text" name="username" value={{ username }}>
@@ -17,9 +66,9 @@
           <label for="password">Password: </label>
           <input id="password" type="password" name="password" value={{ password }}>
       </div>
-
-      <input type="submit" value="Log In">
-
-    </form>
+        
+      <input  class="login" type="submit" value="Log In">
+        
+        </form></div>
   </body>
 </html>

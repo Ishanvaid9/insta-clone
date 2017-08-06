@@ -12,7 +12,7 @@ from django.utils import timezone
 # Create your views here.
 
 
-CLIENT_ID='e8b96d3df82469'
+CLIENT_ID='2e8b96d3df82469'
 CLIENT_SECRET= 'f6292d93b81e0f055521eb71084b63b9ccc5329d'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -37,7 +37,7 @@ def singnup_view(request):
         elif request.method == "GET":
             print ' get called'
             form = SignUpForm()
-        return render(request, 'instalogin.html',{'form':form})
+        return render(request, 'instalogi.html',{'form':form})
 
 def login_user(request):
     print 'loin page called'
@@ -57,7 +57,7 @@ def login_user(request):
                     token = SessionToken(user=user)
                     token.create_token()
                     token.save()
-                    response = redirect('feed/')
+                    response = redirect('/feed/')
                     response.set_cookie(key='session_token', value=token.session_token)
                     return response
                 else:
@@ -77,26 +77,41 @@ def post_view(request):
         print "post view called"
         if user:
             print 'Authentic user'
-            if request.METHOD == 'GET':
-                form = PostForm()
-            elif request.method == 'POST':
+            #if request.METHOD == 'GET':
+             #   form = PostForm()
+            if request.method == 'POST':
+                print 'post called'
                 form = PostForm(request.POST, request.FILES)
+                print form
                 if form.is_valid():
-                    image = form.cleaned_data.get('image')
-                    caption = form.cleaned_data.get('caption')
-
+                    print 'form is valid'
+                    image = form.cleaned_data['image']
+                    caption = form.cleaned_data['caption']
+                    print user
+                    print image
+                    print caption
+                    print BASE_DIR
+                    print "before basedr"
                     post = PostModel(user=user, image=image, caption=caption)
                     post.save()
-                    path =   BASE_DIR+'/'+ post.image.url
+                    path =   (r'C:/Users/ROADBLOCK/Desktop/user_images'+'/'+ post.image.url)
+                    print "after basedr"
                     print path
                     client = ImgurClient(CLIENT_ID,CLIENT_SECRET)
                     post.image_url = client.upload_from_path(path, anon=True)['link']
                     post.save()
-            return render(request, 'feed.html', {'form': form})
+                    redirect('/feed/')
+                else :
+                    print ' form is invalid '
 
+            else :
+                print ' get is called'
+                form=PostForm()
+                print form
+                #return (request,'upload.html')
         else:
             return redirect('/login/')
-
+        return render(request,'upload.html')
 
 # For validating the session
 def check_validation(request):
@@ -109,13 +124,15 @@ def check_validation(request):
 
 
 def feed_view(request):
+    print ' feed called'
     user = check_validation(request)
     if user:
+        print "if feed called"
         posts = PostModel.objects.all().order_by('created_on')
         return render(request, 'feed.html', {'posts': posts})
     else:
         return redirect('/login/')
-
+    return render(request, 'feed.html')
 def like_view(request):
     user = check_validation(request)
     if user and request.method == 'POST':
