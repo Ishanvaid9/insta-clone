@@ -24,8 +24,12 @@ class PostModel(models.Model):
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)
 
+  @property
   def like_count(self):
       return len(LikeModel.objects.filter(post=self))
+  @property
+  def comment_like(self):
+      return CommentModel.objects.filter(post=self)
 
 
 

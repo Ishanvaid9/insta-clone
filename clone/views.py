@@ -162,6 +162,7 @@ def comment_view(request):
             comment_text = form.cleaned_data.get('comment_text')
             comment = CommentModel.objects.create(user=user, post_id=post_id, comment_text=comment_text)
             comment.save()
+
             return redirect('/feed/')
         else:
             return redirect('/feed/')
@@ -179,3 +180,12 @@ def check_validation(request):
                 return session.user
     else:
         return None
+
+def logout_view(request):
+    user=check_validation(request)
+    if user:
+        token=SessionToken.objects.filter(user=user)
+        token.delete()
+        return redirect('/login/')
+    else:
+        return redirect('/login/')

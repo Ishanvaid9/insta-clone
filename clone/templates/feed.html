@@ -3,16 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
-           {% csrf_token %}
 
-           <h3>hii</h3>
-           <a href="/upload">hii</a>
+    <style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+    </style>
+</head>
+<body style="text-align:center;background:url(http://wallpapercave.com/wp/UoQbFHi.jpg); background-repeat:cover; ">
+           {% csrf_token %}
+           <header style="background-color:red;">
+               <ul>
+                    <li><a class="active" href="#home">Home</a></li>
+                    <li><a href="/upload">Upload</a></li>
+                    <li><a href="/logout">logout</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+
+
+           </header>
 
     {% for post in posts %}
 
-    <form >
+    <form  style="color:white;">
         <h3> Posted by: {{ post.user.username }} </h3>
         <p>[{{ post.created_on }}]</p>
         <img style="display:inline-block; width:350px; height:300px;"
@@ -42,12 +75,19 @@
                 <input type="text" name="comment_text" id="comment_text" placeholder="Make a comment.." value="{{ comment_text }}">
                 {{ comment_text }}
                 <input type="submit" class="btn-default btn" value="Comment">
+
+
+
+
             </form>
-        </div>
+
+</div>
 
         <div>
-            {% for comment in post.comments %}
-                <p><b>{{ comment.user.username }} [{{ comment.created_on }}]:</b> {{ comment.comment_text }}</p>
+
+            {% for comment in post.comment_like %}
+            <p style="color:white;"><b>{{ comment.user.username }}
+                    {{ comment.created_on }}:</b> {{ comment.comment_text }}</p>
             {% endfor %}
         </div>
 
