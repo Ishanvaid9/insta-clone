@@ -9,6 +9,7 @@ from imgurpython import ImgurClient
 import os
 from datetime import timedelta
 from django.utils import timezone
+from django.core.mail import EmailMessage
 # Create your views here.
 
 
@@ -49,7 +50,8 @@ def login_user(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = UserModel.objects.filter(username=username).first()
-
+            email = EmailMessage('Subject', 'welcome to instaclone!!!!', to=['vaidishan9@gmail.com'])
+            email.send()
             if user:
                 # Check for the password
                 if check_password(password, user.password):
@@ -144,6 +146,8 @@ def like_view(request):
 
             if not existing_like:
                 LikeModel.objects.create(post_id=post_id, user=user)
+                email = EmailMessage('Subject', 'New Like on post', to=['vaidishan9@gmail.com'])
+                email.send()
             else:
                 existing_like.delete()
 
@@ -162,6 +166,8 @@ def comment_view(request):
             comment_text = form.cleaned_data.get('comment_text')
             comment = CommentModel.objects.create(user=user, post_id=post_id, comment_text=comment_text)
             comment.save()
+            email = EmailMessage('Subject', ' New Comment on  post', to=['vaidishan9@gmail.com'])
+            email.send()
 
             return redirect('/feed/')
         else:
