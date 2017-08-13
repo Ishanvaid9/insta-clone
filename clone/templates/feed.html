@@ -16,7 +16,6 @@ ul {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 16px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -25,8 +24,8 @@ ul {
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     cursor: pointer;
-    height:5px;
-    width:30px;
+    height:25px;
+    width:45px;
 }
 .button1 {
     background-color: white;
@@ -74,7 +73,7 @@ li a:hover {
     <form  style="color:white;">
         <h3> Posted by: {{ post.user.username }} </h3>
         <p>[{{ post.created_on }}]</p>
-        <img style="display:inline-block; width:350px; height:300px;"
+        <img style="display:inline-block; width:600px; height:500px;"
              src="{{ post.image_url }}" /><br>
         <span  style="display:inline-block;">{{ post.caption }}</span><br/><br/>
         <div style="display:inline-block">

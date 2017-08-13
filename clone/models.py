@@ -2,9 +2,12 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 import uuid
-# Create your models here.
+from django.core import validators
 
+# Create your models here.
+USERNAME_MAX_LENGTH=120
 class UserModel(models.Model):
   email = models.EmailField()
   name = models.CharField(max_length=120)

@@ -30,6 +30,7 @@ def singnup_view(request):
                 email = form.cleaned_data['email']
                 password = form.cleaned_data['password']
                 user = UserModel(name=name, password=make_password(password), email=email, username=username)
+
                 user.save()
                 print ' user saved'
                 return render(request,'sucess.html')
@@ -50,7 +51,7 @@ def login_user(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = UserModel.objects.filter(username=username).first()
-            email = EmailMessage('Subject', 'welcome to instaclone!!!!', to=['vaidishan9@gmail.com'])
+            email = EmailMessage('Login Alert', 'welcome to instaclone!!!!', to=['vaidishan9@gmail.com'])
             email.send()
             if user:
                 # Check for the password
@@ -146,7 +147,7 @@ def like_view(request):
 
             if not existing_like:
                 LikeModel.objects.create(post_id=post_id, user=user)
-                email = EmailMessage('Subject', 'New Like on post', to=['vaidishan9@gmail.com'])
+                email = EmailMessage('POSTLIKE', 'New Like on post', to=['vaidishan9@gmail.com'])
                 email.send()
             else:
                 existing_like.delete()
@@ -166,7 +167,7 @@ def comment_view(request):
             comment_text = form.cleaned_data.get('comment_text')
             comment = CommentModel.objects.create(user=user, post_id=post_id, comment_text=comment_text)
             comment.save()
-            email = EmailMessage('Subject', ' New Comment on  post', to=['vaidishan9@gmail.com'])
+            email = EmailMessage('NEW COMMENT ', ' New Comment on  post', to=['vaidishan9@gmail.com'])
             email.send()
 
             return redirect('/feed/')
