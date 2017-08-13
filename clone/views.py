@@ -17,6 +17,8 @@ CLIENT_ID='2e8b96d3df82469'
 CLIENT_SECRET= 'f6292d93b81e0f055521eb71084b63b9ccc5329d'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#signup login function
+
 
 def singnup_view(request):
         print ' view called'
@@ -40,6 +42,9 @@ def singnup_view(request):
             print ' get called'
             form = SignUpForm()
         return render(request, 'instalogi.html',{'form':form})
+
+
+#login function
 
 def login_user(request):
     print 'loin page called'
@@ -73,6 +78,8 @@ def login_user(request):
     return render(request, 'login.html', response_data)
 
 
+
+#post function
 
 
 def post_view(request):
@@ -117,6 +124,7 @@ def post_view(request):
         return render(request,'upload.html')
 
 # For validating the session
+
 def check_validation(request):
     if request.COOKIES.get('session_token'):
         session = SessionToken.objects.filter(session_token=request.COOKIES.get('session_token')).first()
@@ -124,6 +132,9 @@ def check_validation(request):
             return session.user
     else:
         return None
+
+
+# feed function
 
 
 def feed_view(request):
@@ -136,6 +147,12 @@ def feed_view(request):
     else:
         return redirect('/login/')
     return render(request, 'feed.html')
+
+
+
+#like function
+
+
 def like_view(request):
     user = check_validation(request)
     if user and request.method == 'POST':
@@ -158,6 +175,10 @@ def like_view(request):
         return redirect('/login/')
 
 
+
+#comment function
+
+
 def comment_view(request):
     user = check_validation(request)
     if user and request.method == 'POST':
@@ -178,6 +199,8 @@ def comment_view(request):
 
 
 # For validating the session
+
+
 def check_validation(request):
     if request.COOKIES.get('session_token'):
         session = SessionToken.objects.filter(session_token=request.COOKIES.get('session_token')).first()
@@ -187,6 +210,8 @@ def check_validation(request):
                 return session.user
     else:
         return None
+
+# logout function
 
 def logout_view(request):
     user=check_validation(request)

@@ -7,7 +7,8 @@ import uuid
 from django.core import validators
 
 # Create your models here.
-USERNAME_MAX_LENGTH=120
+
+#user model info
 class UserModel(models.Model):
   email = models.EmailField()
   name = models.CharField(max_length=120)
@@ -18,6 +19,10 @@ class UserModel(models.Model):
 
   def __str__(self):
        return self.username
+
+
+# post model
+
 
 class PostModel(models.Model):
   user = models.ForeignKey(UserModel)
@@ -35,7 +40,7 @@ class PostModel(models.Model):
       return CommentModel.objects.filter(post=self)
 
 
-
+ # session tokken
 class SessionToken(models.Model):
     user = models.ForeignKey(UserModel)
     session_token = models.CharField(max_length=255)
@@ -45,13 +50,17 @@ class SessionToken(models.Model):
     def create_token(self):
         self.session_token = uuid.uuid4()
 
-
+#like model
 
 class LikeModel(models.Model):
     user = models.ForeignKey(UserModel)
     post = models.ForeignKey(PostModel)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+
+# comment model
+
 
 class CommentModel(models.Model):
   user = models.ForeignKey(UserModel)
