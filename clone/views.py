@@ -10,12 +10,16 @@ import os
 from datetime import timedelta
 from django.utils import timezone
 from django.core.mail import EmailMessage
+from twilio.rest import Client
 # Create your views here.
 
 
 CLIENT_ID='2e8b96d3df82469'
 CLIENT_SECRET= 'f6292d93b81e0f055521eb71084b63b9ccc5329d'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+account_sid = "ACcee93f758892db32f0920ab88b1ca945"
+auth_token = "144914bd933e248294d546ae74479862"
+client = Client(account_sid, auth_token)
 
 #signup login function
 
@@ -58,6 +62,10 @@ def login_user(request):
             user = UserModel.objects.filter(username=username).first()
             email = EmailMessage('Login Alert', 'welcome to instaclone!!!!', to=['vaidishan9@gmail.com'])
             email.send()
+            message = client.api.account.messages.create(to="+918930841996",
+                                                         from_="+15202638729",
+                                                         body="Hey insta clone works!!!")
+            #message.send()
             if user:
                 # Check for the password
                 if check_password(password, user.password):
